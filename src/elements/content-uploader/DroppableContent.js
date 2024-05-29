@@ -53,12 +53,13 @@ const dropDefinition = {
 };
 
 const DroppableContent = makeDroppable(dropDefinition)(
-    ({ canDrop, isOver, isTouch, view, items, addFiles, onClick, isFolderUploadEnabled }: Props) => {
+    React.forwardRef((props, ref) => {
+        const { canDrop, isOver, isTouch, view, items, addFiles, onClick, isFolderUploadEnabled } = props;
         const handleSelectFiles = ({ target: { files } }: any) => addFiles(files);
         const hasItems = items.length > 0;
 
         return (
-            <div className="bcu-droppable-content">
+            <div className="bcu-droppable-content" ref={ref}>
                 <ItemList items={items} onClick={onClick} view={view} />
                 <UploadState
                     canDrop={canDrop}
@@ -71,7 +72,7 @@ const DroppableContent = makeDroppable(dropDefinition)(
                 />
             </div>
         );
-    },
+    }),
 );
 
 export default DroppableContent;
