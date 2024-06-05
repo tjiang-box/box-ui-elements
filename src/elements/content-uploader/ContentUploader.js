@@ -378,9 +378,7 @@ class ContentUploader extends Component<Props, State> {
         if (droppedItems.items) {
             this.addDataTransferItemsToUploadQueue(droppedItems.items, itemUpdateCallback);
         } else {
-            Array.from(droppedItems.files).forEach(file => {
-                this.addFilesToUploadQueue([file], itemUpdateCallback);
-            });
+            this.addFilesToUploadQueue(droppedItems.files, itemUpdateCallback);
         }
     };
 
@@ -428,18 +426,12 @@ class ContentUploader extends Component<Props, State> {
      * @param {Function} itemUpdateCallback
      * @returns {void}
      */
-    addFileDataTransferItemsToUploadQueue = (
+    addFileDataTransferItemsToUploadQueue = async (
         dataTransferItems: Array<DataTransferItem | UploadDataTransferItemWithAPIOptions>,
         itemUpdateCallback: Function,
     ): void => {
-        dataTransferItems.forEach(async item => {
-            const file = await getFileFromDataTransferItem(item);
-            if (!file) {
-                return;
-            }
-
-            this.addFilesToUploadQueue([file], itemUpdateCallback);
-        });
+        const files = await Promise.all(dataTransferItems.map(async item => getFileFromDataTransferItem(item)));
+        this.addFilesToUploadQueue(files, itemUpdateCallback);
     };
 
     /**
@@ -450,19 +442,12 @@ class ContentUploader extends Component<Props, State> {
      * @param {Function} itemUpdateCallback
      * @returns {void}
      */
-    addPackageDataTransferItemsToUploadQueue = (
+    addPackageDataTransferItemsToUploadQueue = async (
         dataTransferItems: Array<DataTransferItem | UploadDataTransferItemWithAPIOptions>,
         itemUpdateCallback: Function,
     ): void => {
-        dataTransferItems.forEach(item => {
-            const file = getPackageFileFromDataTransferItem(item);
-
-            if (!file) {
-                return;
-            }
-
-            this.addFilesToUploadQueue([file], itemUpdateCallback);
-        });
+        const files = await Promise.all(dataTransferItems.map(async item => getPackageFileFromDataTransferItem(item)));
+        this.addFilesToUploadQueue(files, itemUpdateCallback);
     };
 
     /**
