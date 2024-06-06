@@ -479,11 +479,23 @@ class ContentUploader extends Component<Props, State> {
 
         const fileAPIOptions: Object = getDataTransferItemAPIOptions(newItems[0]);
         const { folderId = rootFolderId } = fileAPIOptions;
-        newItems.forEach(async item => {
-            const folderUpload = this.getFolderUploadAPI(folderId);
-            await folderUpload.buildFolderTreeFromDataTransferItem(item);
-            this.addFolderToUploadQueue(folderUpload, itemUpdateCallback, fileAPIOptions);
-        });
+        const folderUploads = await Promise.all(
+            newItems.map(async item => {
+                const folderUpload = this.getFolderUploadAPI(folderId);
+                await folderUpload.buildFolderTreeFromDataTransferItem(item);
+                return {
+                    api: folderUpload,
+                    extension: '',
+                    isFolder: true,
+                    name: folderUpload.folder.name,
+                    options: fileAPIOptions,
+                    progress: 0,
+                    size: 1,
+                    status: STATUS_PENDING,
+                };
+            }),
+        );
+        this.addFoldersToUploadQueue(folderUploads, itemUpdateCallback);
     };
 
     /**
@@ -549,6 +561,18 @@ class ContentUploader extends Component<Props, State> {
             ],
             itemUpdateCallback,
         );
+    };
+
+    /**
+     * Add folders to upload queue
+     *
+     * @private
+     * @param {Array<FolderUpload>} folderUploads
+     * @param {Function} itemUpdateCallback
+     * @return {void}
+     */
+    addFoldersToUploadQueue = (folderUploads: Array<FolderUpload>, itemUpdateCallback: Function): void => {
+        this.addToQueue(folderUploads, itemUpdateCallback);
     };
 
     /**
