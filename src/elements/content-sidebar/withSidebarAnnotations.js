@@ -2,7 +2,8 @@
 import * as React from 'react';
 import getProp from 'lodash/get';
 import noop from 'lodash/noop';
-import { matchPath, type ContextRouter } from 'react-router-dom';
+import { type ContextRouter } from 'react-router-dom';
+import { matchPath } from '../common/routing/utils';
 import { FEED_ITEM_TYPE_VERSION } from '../../constants';
 import { getBadUserError } from '../../utils/error';
 import type { WithAnnotatorContextProps } from '../common/annotator-context';

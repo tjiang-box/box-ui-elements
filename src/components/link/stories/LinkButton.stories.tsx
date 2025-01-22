@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { BrowserRouter as Router, Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
+import { CustomRouter as Router } from '../../../elements/common/routing/customRouter';
+import CustomLink from '../../../elements/common/routing/customLink';
 
 import LinkButton from '../LinkButton';
 import notes from './LinkButton.stories.md';
@@ -23,11 +24,11 @@ export const withCustomComponent = () => {
     // You can pass a custom component to be used instead of the default "a" tag, like a React Router link:
     // import { BrowserRouter as Router, Link as RouterLink, LinkProps as RouterLinkProps } from 'react-router-dom';
 
-    const CustomRouterLink = ({ href, children, ...rest }: RouterLinkProps) => (
+    const CustomRouterLink = ({ href, children, ...rest }) => (
         // @ts-ignore TODO: figure out why this is giving a TS error
-        <RouterLink to={href} {...rest}>
+        <CustomLink to={href} {...rest}>
             {children}
-        </RouterLink>
+        </CustomLink>
     );
 
     return (

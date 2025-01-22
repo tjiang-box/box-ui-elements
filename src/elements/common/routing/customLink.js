@@ -1,9 +1,3 @@
-/**
- * @flow
- * @file Preview sidebar nav button component
- * @author Box
- */
-
 import React from 'react';
 import { useHistory } from './customRouter';
 

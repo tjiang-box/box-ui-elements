@@ -17,8 +17,7 @@ import setProp from 'lodash/set';
 import throttle from 'lodash/throttle';
 import uniqueid from 'lodash/uniqueId';
 import Measure from 'react-measure';
-import { withRouter } from 'react-router-dom';
-import type { ContextRouter } from 'react-router-dom';
+import withRouter from '../common/routing/withRouter';
 import { decode } from '../../utils/keys';
 import makeResponsive from '../common/makeResponsive';
 import { withNavRouter } from '../common/nav-router';
@@ -1326,6 +1325,7 @@ class ContentPreview extends React.PureComponent<Props, State> {
                             onKeyDown={this.onKeyDown}
                             tabIndex={0}
                         >
+                            <h1>My Local ContentPreview Element</h1>
                             {hasHeader && (
                                 <PreviewHeader
                                     file={file}

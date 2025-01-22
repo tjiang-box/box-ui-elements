@@ -7,7 +7,10 @@
 import * as React from 'react';
 import flow from 'lodash/flow';
 import noop from 'lodash/noop';
-import { matchPath, Redirect, Route, Switch, type Location } from 'react-router-dom';
+import { matchPath } from '../common/routing/utils';
+import CustomSwitch from '../common/routing/customSwitch';
+import CustomRoute from '../common/routing/customRoute';
+import CustomRedirect from '../common/routing/customRedirect';
 import SidebarUtils from './SidebarUtils';
 import withSidebarAnnotations from './withSidebarAnnotations';
 import { withAnnotatorContext } from '../common/annotator-context';
@@ -243,9 +246,9 @@ class SidebarPanels extends React.Component<Props, State> {
         }
 
         return (
-            <Switch>
+            <CustomSwitch>
                 {hasBoxAI && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={`/${SIDEBAR_VIEW_BOXAI}`}
                         render={() => {
@@ -264,7 +267,7 @@ class SidebarPanels extends React.Component<Props, State> {
                     />
                 )}
                 {hasSkills && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={`/${SIDEBAR_VIEW_SKILLS}`}
                         render={() => {
@@ -286,7 +289,7 @@ class SidebarPanels extends React.Component<Props, State> {
                 {/* This handles both the default activity sidebar and the activity sidebar with a
                 comment or task deeplink.  */}
                 {hasActivity && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={[
                             `/${SIDEBAR_VIEW_ACTIVITY}`,
@@ -320,7 +323,7 @@ class SidebarPanels extends React.Component<Props, State> {
                     />
                 )}
                 {hasDetails && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={`/${SIDEBAR_VIEW_DETAILS}`}
                         render={() => {
@@ -342,7 +345,7 @@ class SidebarPanels extends React.Component<Props, State> {
                     />
                 )}
                 {hasMetadata && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={`/${SIDEBAR_VIEW_METADATA}`}
                         render={() => {
@@ -371,7 +374,7 @@ class SidebarPanels extends React.Component<Props, State> {
                     />
                 )}
                 {hasDocGen && (
-                    <Route
+                    <CustomRoute
                         exact
                         path={`/${SIDEBAR_VIEW_DOCGEN}`}
                         render={() => {
@@ -386,29 +389,7 @@ class SidebarPanels extends React.Component<Props, State> {
                         }}
                     />
                 )}
-                {hasVersions && (
-                    <Route
-                        path={SIDEBAR_PATH_VERSIONS}
-                        render={({ match }) => {
-                            if (match.params.sidebar) {
-                                this.handlePanelRender(match.params.sidebar);
-                            }
-                            return (
-                                <LoadableVersionsSidebar
-                                    fileId={fileId}
-                                    hasSidebarInitialized={isInitialized}
-                                    key={fileId}
-                                    onVersionChange={onVersionChange}
-                                    parentName={match.params.sidebar}
-                                    ref={this.versionsSidebar}
-                                    versionId={match.params.versionId}
-                                    {...versionsSidebarProps}
-                                />
-                            );
-                        }}
-                    />
-                )}
-                <Route
+                <CustomRoute
                     render={() => {
                         let redirect = '';
 
@@ -428,10 +409,10 @@ class SidebarPanels extends React.Component<Props, State> {
                             redirect = SIDEBAR_VIEW_METADATA;
                         }
 
-                        return <Redirect to={{ pathname: `/${redirect}`, state: { silent: true } }} />;
+                        return <CustomRedirect to={{ pathname: `/${redirect}`, state: { silent: true } }} />;
                     }}
                 />
-            </Switch>
+            </CustomSwitch>
         );
     }
 }

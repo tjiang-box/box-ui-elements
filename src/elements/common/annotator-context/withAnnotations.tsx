@@ -1,7 +1,8 @@
 import * as React from 'react';
 import getProp from 'lodash/get';
-import { generatePath, match as matchType, matchPath } from 'react-router-dom';
+import { generatePath, match as matchType } from 'react-router-dom';
 import { Location } from 'history';
+import { matchPath } from "../routing/utils";
 import AnnotatorContext from './AnnotatorContext';
 import { Action, Annotator, AnnotationActionEvent, AnnotatorState, GetMatchPath, MatchParams, Status } from './types';
 
@@ -193,7 +194,7 @@ export default function withAnnotations<P extends object>(
         }
 
         getMatchPath(location?: Location): matchType<MatchParams> | null {
-            const pathname = getProp(location, 'pathname', '');
+            const { pathname } = location;
             return matchPath<MatchParams>(pathname, {
                 path: ANNOTATIONS_PATH,
                 exact: true,

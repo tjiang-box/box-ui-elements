@@ -5,35 +5,37 @@
  */
 
 import React from 'react';
-import { useHistory, useLocation } from './customRouter';
+import { useHistory, useLocation, useMatch } from './customRouter';
 
-const CustomRoute = ({ exact, path, render, component: Component, children }) => {
-    console.log('[Custom Route]');
+const CustomRoute = (props) => {
+    const { exact, path, render, component: Component, children } = props;
 
     const history = useHistory();
     const location = useLocation();
+    const match = useMatch();
     const { pathname } = location;
 
-    console.log('history in CustomRoute is: ', history);
-    console.log('location in CustomRoute is: ', location);
-
     // Matching logic
-    const isMatch = exact ? pathname === path : pathname.startsWith(path);
+    // path can be a string or an array of strings
+    const paths = Array.isArray(path) ? path : [path];
+    const isMatch = paths.some(p => {
+        return exact ? pathname === p : pathname.startsWith(p)
+    });
 
-    if (!isMatch) {
-        return null; // Don't render anything if the route doesn't match
+    if (!isMatch && !children) {
+        return null;
     }
 
     // Render the appropriate content
     if (render) {
-        return render({ history, location });
+        return render({ history, location, match });
     }
 
     if (Component) {
-        return <Component history={history} location={location} />;
+        return <Component history={history} location={location} match={match} />;
     }
 
-    return children;
+    return children({ history, location, match });
 };
 
 export default CustomRoute;

@@ -96,7 +96,7 @@ const SidebarNav = ({
                             data-testid="sidebaractivity"
                             onClick={handleSidebarNavButtonClick}
                             sidebarView={SIDEBAR_VIEW_ACTIVITY}
-                            tooltip={intl.formatMessage(messages.sidebarActivityTitle)}
+                            tooltip={"local activity sidebar"}
                         >
                             <IconChatRound />
                         </SidebarNavButton>

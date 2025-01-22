@@ -12,12 +12,12 @@ const defaultArgs = {
         hasRetentionPolicy: true,
     },
     features: global.FEATURES,
-    fileId: global.FILE_ID,
+    fileId: '1331772368658',
     hasActivityFeed: true,
     hasMetadata: true,
     hasSkills: true,
     hasVersions: true,
-    token: global.TOKEN,
+    token: 'k8OR8Sy2ex0vbsrcdzF2wfkvAwFfIn8K',
 };
 
 export const basic = {};

@@ -1263,7 +1263,7 @@ class ActivitySidebar extends React.PureComponent<Props, State> {
                 className={classNames('bcs-activity', { 'bcs-activity--full': hasReplies })}
                 elementId={elementId}
                 sidebarView={SIDEBAR_VIEW_ACTIVITY}
-                title={this.renderTitle()}
+                title={'local activity'}
             >
                 <ActivityFeed
                     activeFeedEntryId={activeFeedEntryId}

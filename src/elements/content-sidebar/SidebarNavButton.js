@@ -5,8 +5,8 @@
  */
 
 import * as React from 'react';
-import { Route } from 'react-router-dom';
 import noop from 'lodash/noop';
+import CustomRoute from '../common/routing/customRoute';
 import NavButton from '../common/nav-button';
 import Tooltip from '../../components/tooltip/Tooltip';
 import './SidebarNavButton.scss';
@@ -40,7 +40,7 @@ const SidebarNavButton = React.forwardRef<Props, React.Ref<any>>((props: Props, 
     };
 
     return (
-        <Route path={sidebarPath}>
+        <CustomRoute path={sidebarPath}>
             {({ match }) => {
                 const isMatch = !!match;
                 const isActive = () => isMatch && !!isOpen;
@@ -76,7 +76,7 @@ const SidebarNavButton = React.forwardRef<Props, React.Ref<any>>((props: Props, 
                     </Tooltip>
                 );
             }}
-        </Route>
+        </CustomRoute>
     );
 });
 

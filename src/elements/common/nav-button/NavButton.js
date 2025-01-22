@@ -6,8 +6,8 @@
 
 import * as React from 'react';
 import classNames from 'classnames';
-import { Route } from 'react-router-dom';
 import type { Match, Location } from 'react-router-dom';
+import CustomRoute from '../routing/customRoute';
 import PlainButton from '../../../components/plain-button';
 import { isLeftClick } from '../../../utils/dom';
 
@@ -41,8 +41,8 @@ const NavButton = React.forwardRef<Props, React.Ref<any>>((props: Props, ref: Re
     const path = typeof to === 'object' ? to.pathname : to;
 
     return (
-        <Route exact={exact} path={path} strict={strict}>
-            {({ history, location, match }) => {
+        <CustomRoute exact={exact} path={path} strict={strict}>
+            {({ history, location, match = null }) => {
                 const isActiveValue = !!(isActive ? isActive(match, location) : match);
 
                 return (
@@ -65,7 +65,7 @@ const NavButton = React.forwardRef<Props, React.Ref<any>>((props: Props, ref: Re
                     </Component>
                 );
             }}
-        </Route>
+        </CustomRoute>
     );
 });
 

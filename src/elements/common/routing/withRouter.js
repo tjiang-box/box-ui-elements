@@ -1,11 +1,12 @@
-import React from 'react';
-import { useHistory } from './customRouter';
+import * as React from 'react';
+import { useHistory, useLocation, useMatch } from './customRouter';
 
-// Higher-Order Component (HOC)
 export default function withRouter(WrappedComponent) {
     return props => {
         const history = useHistory();
+        const location = useLocation();
+        const match = useMatch();
 
-        return <WrappedComponent {...props} history={history} />;
+        return <WrappedComponent {...props} location={location} history={history} match={match} />;
     };
 }

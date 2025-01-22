@@ -6,7 +6,8 @@
 
 import * as React from "react";
 import getProp from "lodash/get";
-import { generatePath, match as matchType, matchPath } from "react-router-dom";
+import { generatePath, match as matchType } from "react-router-dom";
+import { matchPath } from "../../common/routing/utils";
 import { Location } from "history";
 import AnnotatorContext from "./AnnotatorContext";
 import {

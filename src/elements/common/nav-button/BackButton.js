@@ -7,7 +7,7 @@
 import * as React from 'react';
 import classNames from 'classnames';
 import { FormattedMessage } from 'react-intl';
-import { Route, type Location } from 'react-router-dom';
+import CustomRoute from '../routing/customRoute';
 import IconNavigateLeft from '../../../icons/general/IconNavigateLeft';
 import messages from '../messages';
 import PlainButton from '../../../components/plain-button';
@@ -19,7 +19,7 @@ type Props = {
 };
 
 const BackButton = ({ className, to, ...rest }: Props) => (
-    <Route>
+    <CustomRoute>
         {({ history }) => (
             <PlainButton
                 className={classNames('bdl-BackButton', className)}
@@ -33,7 +33,7 @@ const BackButton = ({ className, to, ...rest }: Props) => (
                 </span>
             </PlainButton>
         )}
-    </Route>
+    </CustomRoute>
 );
 
 export default BackButton;

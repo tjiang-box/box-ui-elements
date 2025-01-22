@@ -10,8 +10,7 @@ import flow from 'lodash/flow';
 import getProp from 'lodash/get';
 import noop from 'lodash/noop';
 import uniqueid from 'lodash/uniqueId';
-import { withRouter } from 'react-router-dom';
-import type { Location, RouterHistory } from 'react-router-dom';
+import withRouter from '../common/routing/withRouter';
 import LoadingIndicator from '../../components/loading-indicator/LoadingIndicator';
 import LocalStore from '../../utils/LocalStore';
 import SidebarNav from './SidebarNav';
@@ -327,6 +326,7 @@ class Sidebar extends React.Component<Props, State> {
                     </div>
                 ) : (
                     <>
+                        <div>My Local Sidebar</div>
                         {hasNav && (
                             <SidebarNav
                                 additionalTabs={additionalTabs}

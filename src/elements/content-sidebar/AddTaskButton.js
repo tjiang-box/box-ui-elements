@@ -1,6 +1,6 @@
 // @flow
 import * as React from 'react';
-import { withRouter, type RouterHistory } from 'react-router-dom';
+import withRouter from '../common/routing/withRouter';
 import AddTaskMenu from './AddTaskMenu';
 import TaskModal from './TaskModal';
 import { TASK_TYPE_APPROVAL } from '../../constants';

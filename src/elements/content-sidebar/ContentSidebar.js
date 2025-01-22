@@ -9,15 +9,11 @@ import * as React from 'react';
 import noop from 'lodash/noop';
 import flow from 'lodash/flow';
 import { TooltipProvider } from '@box/blueprint-web';
-import type { RouterHistory } from 'react-router-dom';
 import { CustomRouter } from '../common/routing/customRouter';
-import CustomLink from '../common/routing/customLink';
-import CustomNav from './customComponents/CustomNav';
 import API from '../../api';
 import APIContext from '../common/api-context';
 import Internationalize from '../common/Internationalize';
 import Sidebar from './Sidebar';
-import NavRouter from '../common/nav-router';
 import SidebarUtils from './SidebarUtils';
 import { DEFAULT_HOSTNAME_API, CLIENT_NAME_CONTENT_SIDEBAR, ORIGIN_CONTENT_SIDEBAR } from '../../constants';
 import { EVENT_JS_READY } from '../common/logger/constants';
@@ -49,8 +45,6 @@ import '../common/fonts.scss';
 import '../common/base.scss';
 import '../common/modal.scss';
 import './ContentSidebar.scss';
-
-import CustomSidebar from './customComponents/CustomSidebar';
 
 type Props = {
     activitySidebarProps: ActivitySidebarProps,
@@ -380,19 +374,9 @@ class ContentSidebar extends React.Component<Props, State> {
         return (
             <Internationalize language={language} messages={messages}>
                 <APIContext.Provider value={(this.api: any)}>
-                    {/* <NavRouter history={history} initialEntries={[initialPath]}> */}
-                    <CustomRouter initialEntries={[initialPath]}>
+                    <CustomRouter history={history} initialEntries={[initialPath]}>
                         <TooltipProvider>
-                            <nav>
-                                <CustomLink to="/">Activitys Page</CustomLink>
-                                <hr />
-                                <CustomLink to="/details">Details Page</CustomLink>
-                                <hr />
-                                <CustomLink to="/metadata">Metadata Page</CustomLink>
-                            </nav>
-                            <CustomNav />
-                            <CustomSidebar />
-                            {/* <Sidebar
+                            <Sidebar
                                 activitySidebarProps={activitySidebarProps}
                                 additionalTabs={additionalTabs}
                                 boxAISidebarProps={boxAISidebarProps}
@@ -423,10 +407,9 @@ class ContentSidebar extends React.Component<Props, State> {
                                 wrappedComponentRef={ref => {
                                     this.sidebarRef = ref;
                                 }}
-                            /> */}
+                            />
                         </TooltipProvider>
                     </CustomRouter>
-                    {/* </NavRouter> */}
                 </APIContext.Provider>
             </Internationalize>
         );

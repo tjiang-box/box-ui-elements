@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { MemoryRouter, Router } from 'react-router';
 import { History } from 'history';
+import { CustomRouter } from '../routing/customRouter';
 
 type Props = {
     children: React.ReactNode;
@@ -12,10 +13,10 @@ const NavRouter = ({ children, history, ...rest }: Props) => {
     if (history) {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
-        return <Router history={history}>{children}</Router>;
+        return <CustomRouter history={history}>{children}</CustomRouter>;
     }
 
-    return <MemoryRouter {...rest}>{children}</MemoryRouter>;
+    return <CustomRouter {...rest}>{children}</CustomRouter>;
 };
 
 export default NavRouter;

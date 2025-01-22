@@ -2,28 +2,23 @@ import React from 'react';
 import { useLocation } from './customRouter';
 
 const CustomSwitch = ({ children }) => {
-    console.log('[CustomSwitch]');
     const location = useLocation();
     const { pathname } = location;
-    console.log('current pathname is: ', pathname);
 
     let match = null;
     let matchedChild = null;
 
-    console.log('children is: ', children);
-
     React.Children.forEach(children, child => {
         if (!match && React.isValidElement(child)) {
-            const { path, exact, to } = child.props;
+            const { path, exact } = child.props;
 
-            if (to) {
-                // Handle CustomRedirect
-                matchedChild = React.cloneElement(child);
-                match = true;
-            } else if (path) {
+            if (path) {
+                const paths = Array.isArray(path) ? path : [path];
                 // Match the route
-                const isExactMatch = exact ? pathname === path : pathname.startsWith(path);
-                if (isExactMatch) {
+                const isMatch = paths.some(p => {
+                    return exact ? pathname === p : pathname.startsWith(p)
+                });
+                if (isMatch) {
                     match = true;
                     matchedChild = child;
                 }
